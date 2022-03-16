@@ -3,11 +3,19 @@
 #include <QObject>
 #include <QTcpServer>
 #include <QTcpSocket>
+#include "functionsforserver.h"
 
 #include <list>
 #include <QtNetwork>
 #include <QByteArray>
 #include <QDebug>
+
+/*!
+* \brief The MyTcpServer class - класс для описания работы сервера
+*
+* Класс на основе QTcpServer, который ....
+*/
+
 
 class MyTcpServer : public QObject
 {

@@ -1,4 +1,5 @@
 #include "mytcpserver.h"
+#include "functionsforserver.h"
 #include <QDebug>
 #include <QCoreApplication>
 #include <iostream>
@@ -38,7 +39,7 @@ void MyTcpServer::slotServerRead(){
                 QString str = tempSock->readAll();
                 QByteArray array;
                 array.append(str);
-                tempSock->write(array);}
+                tempSock->write(parsing(array));}
 }
 
 
