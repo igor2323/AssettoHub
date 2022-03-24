@@ -2,7 +2,7 @@
 \label{classMyTcpServer}\index{MyTcpServer@{MyTcpServer}}
 
 
-The \mbox{\hyperlink{classMyTcpServer}{My\+Tcp\+Server}} class -\/ класс для описания работы сервера  
+\mbox{\hyperlink{classMyTcpServer}{My\+Tcp\+Server}} -\/ главный класс сервера.  
 
 
 
@@ -19,28 +19,31 @@ Inheritance diagram for My\+Tcp\+Server\+:\begin{figure}[H]
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classMyTcpServer_a0ba7316ffe1a26c57fabde9e74b6c8dc}\label{classMyTcpServer_a0ba7316ffe1a26c57fabde9e74b6c8dc}} 
-void {\bfseries slot\+New\+Connection} ()
-\item 
+void \mbox{\hyperlink{classMyTcpServer_a0ba7316ffe1a26c57fabde9e74b6c8dc}{slot\+New\+Connection}} ()
+\begin{DoxyCompactList}\small\item\em Метод класса \mbox{\hyperlink{classMyTcpServer}{My\+Tcp\+Server}}, который подключает пользователя к серверу и выводит ему приветствие. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classMyTcpServer_a3e040c49dbefd65b9a58ab662fc9f7a2}\label{classMyTcpServer_a3e040c49dbefd65b9a58ab662fc9f7a2}} 
-void {\bfseries slot\+Client\+Disconnected} ()
-\item 
+void \mbox{\hyperlink{classMyTcpServer_a3e040c49dbefd65b9a58ab662fc9f7a2}{slot\+Client\+Disconnected}} ()
+\begin{DoxyCompactList}\small\item\em Метод класса \mbox{\hyperlink{classMyTcpServer}{My\+Tcp\+Server}}, который отключает пользователя от сервера. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classMyTcpServer_ab4a64d2eab985d723090963f5c8a2882}\label{classMyTcpServer_ab4a64d2eab985d723090963f5c8a2882}} 
-void {\bfseries slot\+Server\+Read} ()
-\end{DoxyCompactItemize}
+void \mbox{\hyperlink{classMyTcpServer_ab4a64d2eab985d723090963f5c8a2882}{slot\+Server\+Read}} ()
+\begin{DoxyCompactList}\small\item\em Метод класса \mbox{\hyperlink{classMyTcpServer}{My\+Tcp\+Server}}, который считывает строку, которая вводится пользователем. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classMyTcpServer_acf367c4695b4d160c7a2d25c2afaaec4}\label{classMyTcpServer_acf367c4695b4d160c7a2d25c2afaaec4}} 
-{\bfseries My\+Tcp\+Server} (QObject $\ast$parent=nullptr)
-\end{DoxyCompactItemize}
+\mbox{\hyperlink{classMyTcpServer_acf367c4695b4d160c7a2d25c2afaaec4}{My\+Tcp\+Server}} (QObject $\ast$parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Конструктор класса \mbox{\hyperlink{classMyTcpServer}{My\+Tcp\+Server}}. Конструктор класса в котором мы открываем сервер на прослушивание и подключаемся к базе данных. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMyTcpServer_ab39e651ff7c37c152215c02c225e79ef}\label{classMyTcpServer_ab39e651ff7c37c152215c02c225e79ef}} 
+\mbox{\hyperlink{classMyTcpServer_ab39e651ff7c37c152215c02c225e79ef}{$\sim$\+My\+Tcp\+Server}} ()
+\begin{DoxyCompactList}\small\item\em Деструктор класса \mbox{\hyperlink{classMyTcpServer}{My\+Tcp\+Server}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-The \mbox{\hyperlink{classMyTcpServer}{My\+Tcp\+Server}} class -\/ класс для описания работы сервера 
+\mbox{\hyperlink{classMyTcpServer}{My\+Tcp\+Server}} -\/ главный класс сервера. 
 
-Класс на основе QTcp\+Server, который .... 
+Класс \mbox{\hyperlink{classMyTcpServer}{My\+Tcp\+Server}} на основе QTcp\+Server, который реализует всю основную логику работы сервера. 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
 mytcpserver.\+h\item 
-mytcpserver.\+cpp\end{DoxyCompactItemize}
+\mbox{\hyperlink{mytcpserver_8cpp}{mytcpserver.\+cpp}}\end{DoxyCompactItemize}

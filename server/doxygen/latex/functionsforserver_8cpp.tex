@@ -1,0 +1,76 @@
+\hypertarget{functionsforserver_8cpp}{}\doxysection{functionsforserver.\+cpp File Reference}
+\label{functionsforserver_8cpp}\index{functionsforserver.cpp@{functionsforserver.cpp}}
+{\ttfamily \#include \char`\"{}functionsforserver.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$QString\+List$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+QByte\+Array \mbox{\hyperlink{functionsforserver_8cpp_af15516dbde168cd1fabbce8e4209b5a5}{parsing}} (QString data\+\_\+from\+\_\+client)
+\begin{DoxyCompactList}\small\item\em parsing -\/ функция, которая по введённому названию комманды и дополнительным параметрам запускает команду и возращает результат работы. \end{DoxyCompactList}\item 
+QByte\+Array \mbox{\hyperlink{functionsforserver_8cpp_a8a240dbb1effe803a8c7b95afbede15e}{auth}} (QString log, QString pass)
+\begin{DoxyCompactList}\small\item\em auth -\/ функция, которая реализует команду auth, нужная для аутентификации пользователя на сервере. \end{DoxyCompactList}\item 
+QByte\+Array \mbox{\hyperlink{functionsforserver_8cpp_a8ed1d6f6e7a383dfbac1ad5aedf1ad36}{reg}} (QString log, QString pass, QString mail)
+\begin{DoxyCompactList}\small\item\em reg -\/ функция, которая реализует команду reg, нужная для регистрации пользователя на сервере. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{functionsforserver_8cpp_a8a240dbb1effe803a8c7b95afbede15e}\label{functionsforserver_8cpp_a8a240dbb1effe803a8c7b95afbede15e}} 
+\index{functionsforserver.cpp@{functionsforserver.cpp}!auth@{auth}}
+\index{auth@{auth}!functionsforserver.cpp@{functionsforserver.cpp}}
+\doxysubsubsection{\texorpdfstring{auth()}{auth()}}
+{\footnotesize\ttfamily QByte\+Array auth (\begin{DoxyParamCaption}\item[{QString}]{log,  }\item[{QString}]{pass }\end{DoxyParamCaption})}
+
+
+
+auth -\/ функция, которая реализует команду auth, нужная для аутентификации пользователя на сервере. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em log} & -\/ строка, которая содержит логин пользователя. \\
+\hline
+\mbox{\texttt{ in}}  & {\em pass} & -\/ строка, которая содержит пароль пользователя. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+возвращает результат аутентификации. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{functionsforserver_8cpp_af15516dbde168cd1fabbce8e4209b5a5}\label{functionsforserver_8cpp_af15516dbde168cd1fabbce8e4209b5a5}} 
+\index{functionsforserver.cpp@{functionsforserver.cpp}!parsing@{parsing}}
+\index{parsing@{parsing}!functionsforserver.cpp@{functionsforserver.cpp}}
+\doxysubsubsection{\texorpdfstring{parsing()}{parsing()}}
+{\footnotesize\ttfamily QByte\+Array parsing (\begin{DoxyParamCaption}\item[{QString}]{data\+\_\+from\+\_\+client }\end{DoxyParamCaption})}
+
+
+
+parsing -\/ функция, которая по введённому названию комманды и дополнительным параметрам запускает команду и возращает результат работы. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em data\+\_\+from\+\_\+client} & -\/ строка, которая приходит от клиента в формате func\&param1\&param2...paramN. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+возвращает результат работы команды, поданной на вход. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{functionsforserver_8cpp_a8ed1d6f6e7a383dfbac1ad5aedf1ad36}\label{functionsforserver_8cpp_a8ed1d6f6e7a383dfbac1ad5aedf1ad36}} 
+\index{functionsforserver.cpp@{functionsforserver.cpp}!reg@{reg}}
+\index{reg@{reg}!functionsforserver.cpp@{functionsforserver.cpp}}
+\doxysubsubsection{\texorpdfstring{reg()}{reg()}}
+{\footnotesize\ttfamily QByte\+Array reg (\begin{DoxyParamCaption}\item[{QString}]{log,  }\item[{QString}]{pass,  }\item[{QString}]{mail }\end{DoxyParamCaption})}
+
+
+
+reg -\/ функция, которая реализует команду reg, нужная для регистрации пользователя на сервере. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em log} & -\/ строка, которая содержит логин пользователя. \\
+\hline
+\mbox{\texttt{ in}}  & {\em pass} & -\/ строка, которая содержит пароль пользователя. \\
+\hline
+\mbox{\texttt{ in}}  & {\em mail} & -\/ строка, которая содержит необязательный электронный адрес почты пользователя. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+возвращает результат регистрации. 
+\end{DoxyReturn}

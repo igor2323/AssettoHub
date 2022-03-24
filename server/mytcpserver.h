@@ -11,11 +11,10 @@
 #include <QDebug>
 
 /*!
-* \brief The MyTcpServer class - класс для описания работы сервера
+* \brief MyTcpServer - главный класс сервера.
 *
-* Класс на основе QTcpServer, который ....
+* Класс MyTcpServer на основе QTcpServer, который реализует всю основную логику работы сервера.
 */
-
 
 class MyTcpServer : public QObject
 {
