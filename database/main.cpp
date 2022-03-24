@@ -9,9 +9,9 @@
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-    QSqlDatabase db =
-            QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("Test");
+    QString path = "/home/igor/prom/projects/AssettoHub/database/";
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName(path+"TestDB.db");
 
     if(!db.open())
         qDebug()<<db.lastError().text();
@@ -104,7 +104,7 @@ int main(int argc, char *argv[])
         qDebug()<<query.value(loginIndex).toString();
 
     //query.exec("DROP DATABASE Test");
-    query.exec("DROP TABLE User");
+//    query.exec("DROP TABLE User");
     db.close();
     return a.exec();
 }
