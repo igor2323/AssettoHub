@@ -7,6 +7,7 @@
 #include <QDebug>
 #include <QCoreApplication>
 #include <iostream>
+#include "database.h"
 
 /*!
  * \brief Деструктор класса MyTcpServer.
@@ -23,7 +24,6 @@ MyTcpServer::~MyTcpServer()
 */
 MyTcpServer::MyTcpServer(QObject *parent) : QObject(parent){
     mTcpServer = new QTcpServer(this);
-
     connect(mTcpServer, &QTcpServer::newConnection,
             this, &MyTcpServer::slotNewConnection);
     if(!mTcpServer->listen(QHostAddress::Any, 33334)){
