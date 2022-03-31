@@ -1,0 +1,2 @@
+sudo docker build . -t server -f docker/Dockerfile
+sudo docker run -p 33333:33333 -it server /bin/bash

@@ -3,11 +3,6 @@
  */
 
 #include "mytcpserver.h"
-#include "functionsforserver.h"
-#include <QDebug>
-#include <QCoreApplication>
-#include <iostream>
-#include "database.h"
 
 /*!
  * \brief Деструктор класса MyTcpServer.
@@ -23,10 +18,11 @@ MyTcpServer::~MyTcpServer()
  * Конструктор класса в котором мы открываем сервер на прослушивание и подключаемся к базе данных.
 */
 MyTcpServer::MyTcpServer(QObject *parent) : QObject(parent){
+    DataBase::getInstance();
     mTcpServer = new QTcpServer(this);
     connect(mTcpServer, &QTcpServer::newConnection,
             this, &MyTcpServer::slotNewConnection);
-    if(!mTcpServer->listen(QHostAddress::Any, 33334)){
+    if(!mTcpServer->listen(QHostAddress::Any, 33333)){
         qDebug() << "server is not started";
     } else {
         //server_status=1;

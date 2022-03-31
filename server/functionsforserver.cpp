@@ -3,8 +3,7 @@
  */
 
 #include "functionsforserver.h"
-#include <QStringList>
-#include "database.h"
+
 
 /*!
  * \brief parsing - функция, которая по введённому названию комманды и дополнительным параметрам запускает команду и возращает
@@ -18,7 +17,6 @@ QByteArray parsing(QString data_from_client){
     * return NameOfFunc(Param1&Param2&Param3)
     */
     QStringList data_from_client_list = data_from_client.split(QLatin1Char('&'));
-
     QString nameOfFunc = data_from_client_list.front();
     data_from_client_list.pop_front();
 
@@ -37,8 +35,7 @@ QByteArray parsing(QString data_from_client){
  * \return возвращает результат аутентификации.
 */
 QByteArray auth(QString log, QString pass){
-    DataBase::getInstance();
-    qDebug() << DataBase::Test1;
+    qDebug() << DataBase::Test1();
     return "auth done\n";
 }
 

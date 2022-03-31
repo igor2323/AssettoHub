@@ -1,5 +1,7 @@
+#pragma once
 #ifndef DATABASE_H
 #define DATABASE_H
+
 #include <QString>
 #include <QVariant>
 #include <QDebug>
@@ -19,7 +21,6 @@ class DataBaseDestroyer
         void initialize(DataBase * p){dataBasePointer = p;}
 };
 
-
 class DataBase
 {
     private:
@@ -27,25 +28,23 @@ class DataBase
         static DataBaseDestroyer destroyer;
         static QSqlDatabase db;
     protected:
-        DataBase(){}
+        DataBase(){
+            db = QSqlDatabase::addDatabase("QSQLITE");
+            QString path = "../";
+            db.setDatabaseName(path + "TestDB.db");
+
+            if (!db.open())
+                qDebug() << db.lastError().text();
+        }
         DataBase(const DataBase& );
         DataBase& operator = (DataBase &);
-        ~DataBase() {}
+        ~DataBase() {db.close();}
         friend class DataBaseDestroyer;
     public:
         static DataBase* getInstance(){
             if (!dataBasePointer)
             {
                 dataBasePointer = new DataBase();
-                dataBasePointer->db = QSqlDatabase::addDatabase("QSQLITE");
-                QString path = "../";
-                dataBasePointer->db.setDatabaseName(path + "TestDB.db");
-
-                if (!dataBasePointer->db.open())
-                    qDebug() << dataBasePointer->db.lastError().text();
-
-
-
                 destroyer.initialize(dataBasePointer);
             }
             return dataBasePointer;
@@ -56,6 +55,6 @@ class DataBase
         };
 };
 
-DataBase * DataBase::dataBasePointer = nullptr;
-DataBaseDestroyer DataBase::destroyer;
+
+
 #endif // DATABASE_H
