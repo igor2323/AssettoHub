@@ -7,11 +7,13 @@ RUN apt -y update && \
     apt -y install build-essential && \
     apt -y install gcc-snapshot gcc g++ && \
     apt -y install qt5-qmake && \
-    apt -y install qt5-default 
+    DEBIAN_FRONTEND=noninteractive apt -y install qt5-default
 
-RUN cd /root/server/
+WORKDIR /root/server/
+
 RUN qmake echoServer.pro && \
-    make && \
-    ./echoServer
+    make
+    
+CMD ./echoServer
 
 
