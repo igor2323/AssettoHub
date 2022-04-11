@@ -1,5 +1,10 @@
+#include <QPixmap>
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "about.h"
+
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -9,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui_auth = new AuthWindow;
     ui_auth->show();
     connect(ui_auth, &AuthWindow::send_data, this, &MainWindow::slot_show);
+
 }
 
 MainWindow::~MainWindow()
@@ -19,6 +25,27 @@ MainWindow::~MainWindow()
 
 void MainWindow::slot_show(QString log)
 {
-    ui->label->setText(log);
+    QPixmap LogoPic(":/resources/img/logo.png");
+    ui->logo->setPixmap(LogoPic);
+    ui->NameOfUser->setText(log);
     show();
 }
+
+
+
+void MainWindow::on_actionExit_triggered(bool checked)
+{
+    close();
+}
+
+
+
+
+
+void MainWindow::on_actionAbout_product_triggered()
+{
+    about AboutPage;
+    AboutPage.setModal(true);
+    AboutPage.exec();
+}
+

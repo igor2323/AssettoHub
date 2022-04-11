@@ -24,5 +24,8 @@ private:
 
 private slots:
     void slot_show(QString log);
+
+    void on_actionExit_triggered(bool checked);
+    void on_actionAbout_product_triggered();
 };
 #endif // MAINWINDOW_H
