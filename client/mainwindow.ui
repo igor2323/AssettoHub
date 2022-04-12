@@ -88,6 +88,11 @@
     </column>
     <column>
      <property name="text">
+      <string>Download</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
       <string>Name of the setup</string>
      </property>
     </column>
@@ -177,6 +182,19 @@
     </property>
     <property name="scaledContents">
      <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="ButtonStat">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>80</y>
+      <width>121</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Statistic of searching</string>
     </property>
    </widget>
   </widget>

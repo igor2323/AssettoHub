@@ -46,7 +46,7 @@ void AuthWindow::on_authEnterButton_clicked()
     QString pass = ui->passwordInput->text();
 
     //Проверка на авторизацию
-
+    auth(log,pass);
     emit send_data(log);
     hide();
 }
@@ -58,7 +58,7 @@ void AuthWindow::on_regEnterButton_clicked()
     QString pass = ui->passwordInput->text();
 
     //Проверка на регистрацию
-
+    reg(log,pass);
     emit send_data(log);
     hide();
 }

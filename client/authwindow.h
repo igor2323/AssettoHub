@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "QString"
+#include "functions_for_client.h"
 
 namespace Ui {
 class AuthWindow;

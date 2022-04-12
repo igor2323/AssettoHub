@@ -4,7 +4,8 @@
 #include <QMainWindow>
 
 #include "authwindow.h"
-#include "QString"
+#include <QString>
+#include <QInputDialog>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -27,5 +28,10 @@ private slots:
 
     void on_actionExit_triggered(bool checked);
     void on_actionAbout_product_triggered();
+    void on_ButtonByCar_clicked();
+    void on_ButtonByTrack_clicked();
+    void on_ButtonStat_clicked();
+    void on_actionBy_car_triggered();
+    void on_actionBy_Track_triggered();
 };
 #endif // MAINWINDOW_H

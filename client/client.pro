@@ -11,12 +11,14 @@ CONFIG += c++17
 SOURCES += \
     about.cpp \
     authwindow.cpp \
+    functions_for_client.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     about.h \
     authwindow.h \
+    functions_for_client.h \
     mainwindow.h
 
 FORMS += \
