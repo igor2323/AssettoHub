@@ -2,10 +2,14 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
 #include "authwindow.h"
 #include <QString>
 #include <QInputDialog>
+#include "ui_mainwindow.h"
+#include "about.h"
+#include "QMessageBox"
+#include <QPixmap>
+#include "client.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

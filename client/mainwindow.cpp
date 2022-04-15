@@ -1,17 +1,9 @@
-#include <QPixmap>
-
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
-#include "about.h"
-#include "QMessageBox"
 
-
-
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    Client::getInstance();
     ui_auth = new AuthWindow;
     ui_auth->show();
     connect(ui_auth, &AuthWindow::send_data, this, &MainWindow::slot_show);
@@ -56,7 +48,7 @@ void MainWindow::on_actionAbout_product_triggered()
 
 void MainWindow::on_ButtonByCar_clicked()
 {
-  //поиск и вывод
+//  поиск и вывод
     QString search = ui->SearchLineCar->text();
     qDebug() << search;
 
