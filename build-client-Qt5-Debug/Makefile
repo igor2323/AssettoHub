@@ -14,10 +14,10 @@ EQ            = =
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -g -std=gnu++1z -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I../client -I. -I/usr/include/QtWidgets -I/usr/include/QtGui -I/usr/include/QtCore -I. -I. -I/usr/lib/mkspecs/linux-g++
+INCPATH       = -I../client -I. -I/usr/include/QtWidgets -I/usr/include/QtGui -I/usr/include/QtNetwork -I/usr/include/QtCore -I. -I. -I/usr/lib/mkspecs/linux-g++
 QMAKE         = /usr/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -40,7 +40,7 @@ DISTNAME      = client1.0.0
 DISTDIR = /home/igor/prom/projects/AssettoHub/build-client-Qt5-Debug/.tmp/client1.0.0
 LINK          = g++
 LFLAGS        = 
-LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libQt5Widgets.so /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Core.so -lGL -lpthread   
+LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libQt5Widgets.so /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Network.so /usr/lib/x86_64-linux-gnu/libQt5Core.so -lGL -lpthread   
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -52,14 +52,24 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../client/authwindow.cpp \
+SOURCES       = ../client/about.cpp \
+		../client/authwindow.cpp \
+		../client/functions_for_client.cpp \
 		../client/main.cpp \
-		../client/mainwindow.cpp moc_authwindow.cpp \
+		../client/mainwindow.cpp qrc_Resources.cpp \
+		moc_about.cpp \
+		moc_authwindow.cpp \
+		moc_client.cpp \
 		moc_mainwindow.cpp
-OBJECTS       = authwindow.o \
+OBJECTS       = about.o \
+		authwindow.o \
+		functions_for_client.o \
 		main.o \
 		mainwindow.o \
+		qrc_Resources.o \
+		moc_about.o \
 		moc_authwindow.o \
+		moc_client.o \
 		moc_mainwindow.o
 DIST          = /usr/lib/mkspecs/features/spec_pre.prf \
 		/usr/lib/mkspecs/common/unix.conf \
@@ -307,8 +317,13 @@ DIST          = /usr/lib/mkspecs/features/spec_pre.prf \
 		/usr/lib/mkspecs/features/exceptions.prf \
 		/usr/lib/mkspecs/features/yacc.prf \
 		/usr/lib/mkspecs/features/lex.prf \
-		../client/client.pro ../client/authwindow.h \
-		../client/mainwindow.h ../client/authwindow.cpp \
+		../client/client.pro ../client/about.h \
+		../client/authwindow.h \
+		../client/client.h \
+		../client/functions_for_client.h \
+		../client/mainwindow.h ../client/about.cpp \
+		../client/authwindow.cpp \
+		../client/functions_for_client.cpp \
 		../client/main.cpp \
 		../client/mainwindow.cpp
 QMAKE_TARGET  = client
@@ -319,7 +334,7 @@ TARGET        = client
 first: all
 ####### Build rules
 
-client: ui_authwindow.h ui_mainwindow.h $(OBJECTS)  
+client: ui_about.h ui_authwindow.h ui_mainwindow.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: ../client/client.pro /usr/lib/mkspecs/linux-g++/qmake.conf /usr/lib/mkspecs/features/spec_pre.prf \
@@ -568,7 +583,8 @@ Makefile: ../client/client.pro /usr/lib/mkspecs/linux-g++/qmake.conf /usr/lib/mk
 		/usr/lib/mkspecs/features/exceptions.prf \
 		/usr/lib/mkspecs/features/yacc.prf \
 		/usr/lib/mkspecs/features/lex.prf \
-		../client/client.pro
+		../client/client.pro \
+		../client/Resources.qrc
 	$(QMAKE) -o Makefile ../client/client.pro -spec linux-g++ CONFIG+=debug CONFIG+=qml_debug
 /usr/lib/mkspecs/features/spec_pre.prf:
 /usr/lib/mkspecs/common/unix.conf:
@@ -817,6 +833,7 @@ Makefile: ../client/client.pro /usr/lib/mkspecs/linux-g++/qmake.conf /usr/lib/mk
 /usr/lib/mkspecs/features/yacc.prf:
 /usr/lib/mkspecs/features/lex.prf:
 ../client/client.pro:
+../client/Resources.qrc:
 qmake: FORCE
 	@$(QMAKE) -o Makefile ../client/client.pro -spec linux-g++ CONFIG+=debug CONFIG+=qml_debug
 
@@ -831,10 +848,11 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
+	$(COPY_FILE) --parents ../client/Resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../client/authwindow.h ../client/mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../client/authwindow.cpp ../client/main.cpp ../client/mainwindow.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../client/authwindow.ui ../client/mainwindow.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../client/about.h ../client/authwindow.h ../client/client.h ../client/functions_for_client.h ../client/mainwindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../client/about.cpp ../client/authwindow.cpp ../client/functions_for_client.cpp ../client/main.cpp ../client/mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../client/about.ui ../client/authwindow.ui ../client/mainwindow.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -858,35 +876,60 @@ check: first
 
 benchmark: first
 
-compiler_rcc_make_all:
+compiler_rcc_make_all: qrc_Resources.cpp
 compiler_rcc_clean:
+	-$(DEL_FILE) qrc_Resources.cpp
+qrc_Resources.cpp: ../client/Resources.qrc \
+		/usr/bin/rcc \
+		../client/img/logo.png
+	/usr/bin/rcc -name Resources ../client/Resources.qrc -o qrc_Resources.cpp
+
 compiler_moc_predefs_make_all: moc_predefs.h
 compiler_moc_predefs_clean:
 	-$(DEL_FILE) moc_predefs.h
 moc_predefs.h: /usr/lib/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -std=gnu++1z -Wall -Wextra -dM -E -o moc_predefs.h /usr/lib/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_authwindow.cpp moc_mainwindow.cpp
+compiler_moc_header_make_all: moc_about.cpp moc_authwindow.cpp moc_client.cpp moc_mainwindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_authwindow.cpp moc_mainwindow.cpp
-moc_authwindow.cpp: ../client/authwindow.h \
+	-$(DEL_FILE) moc_about.cpp moc_authwindow.cpp moc_client.cpp moc_mainwindow.cpp
+moc_about.cpp: ../client/about.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include /home/igor/prom/projects/AssettoHub/build-client-Qt5-Debug/moc_predefs.h -I/usr/lib/mkspecs/linux-g++ -I/home/igor/prom/projects/AssettoHub/client -I/usr/include/QtWidgets -I/usr/include/QtGui -I/usr/include/QtCore -I. -I/usr/include/c++/10.2.0 -I/usr/include/c++/10.2.0/x86_64-unknown-linux-gnu -I/usr/include/c++/10.2.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/10.2.0/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/10.2.0/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../client/authwindow.h -o moc_authwindow.cpp
+	/usr/bin/moc $(DEFINES) --include /home/igor/prom/projects/AssettoHub/build-client-Qt5-Debug/moc_predefs.h -I/usr/lib/mkspecs/linux-g++ -I/home/igor/prom/projects/AssettoHub/client -I/usr/include/QtWidgets -I/usr/include/QtGui -I/usr/include/QtNetwork -I/usr/include/QtCore -I. -I/usr/include/c++/10.2.0 -I/usr/include/c++/10.2.0/x86_64-unknown-linux-gnu -I/usr/include/c++/10.2.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/10.2.0/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/10.2.0/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../client/about.h -o moc_about.cpp
+
+moc_authwindow.cpp: ../client/authwindow.h \
+		../client/functions_for_client.h \
+		moc_predefs.h \
+		/usr/bin/moc
+	/usr/bin/moc $(DEFINES) --include /home/igor/prom/projects/AssettoHub/build-client-Qt5-Debug/moc_predefs.h -I/usr/lib/mkspecs/linux-g++ -I/home/igor/prom/projects/AssettoHub/client -I/usr/include/QtWidgets -I/usr/include/QtGui -I/usr/include/QtNetwork -I/usr/include/QtCore -I. -I/usr/include/c++/10.2.0 -I/usr/include/c++/10.2.0/x86_64-unknown-linux-gnu -I/usr/include/c++/10.2.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/10.2.0/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/10.2.0/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../client/authwindow.h -o moc_authwindow.cpp
+
+moc_client.cpp: ../client/client.h \
+		moc_predefs.h \
+		/usr/bin/moc
+	/usr/bin/moc $(DEFINES) --include /home/igor/prom/projects/AssettoHub/build-client-Qt5-Debug/moc_predefs.h -I/usr/lib/mkspecs/linux-g++ -I/home/igor/prom/projects/AssettoHub/client -I/usr/include/QtWidgets -I/usr/include/QtGui -I/usr/include/QtNetwork -I/usr/include/QtCore -I. -I/usr/include/c++/10.2.0 -I/usr/include/c++/10.2.0/x86_64-unknown-linux-gnu -I/usr/include/c++/10.2.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/10.2.0/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/10.2.0/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../client/client.h -o moc_client.cpp
 
 moc_mainwindow.cpp: ../client/mainwindow.h \
 		../client/authwindow.h \
+		../client/functions_for_client.h \
+		ui_mainwindow.h \
+		../client/about.h \
+		../client/client.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include /home/igor/prom/projects/AssettoHub/build-client-Qt5-Debug/moc_predefs.h -I/usr/lib/mkspecs/linux-g++ -I/home/igor/prom/projects/AssettoHub/client -I/usr/include/QtWidgets -I/usr/include/QtGui -I/usr/include/QtCore -I. -I/usr/include/c++/10.2.0 -I/usr/include/c++/10.2.0/x86_64-unknown-linux-gnu -I/usr/include/c++/10.2.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/10.2.0/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/10.2.0/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../client/mainwindow.h -o moc_mainwindow.cpp
+	/usr/bin/moc $(DEFINES) --include /home/igor/prom/projects/AssettoHub/build-client-Qt5-Debug/moc_predefs.h -I/usr/lib/mkspecs/linux-g++ -I/home/igor/prom/projects/AssettoHub/client -I/usr/include/QtWidgets -I/usr/include/QtGui -I/usr/include/QtNetwork -I/usr/include/QtCore -I. -I/usr/include/c++/10.2.0 -I/usr/include/c++/10.2.0/x86_64-unknown-linux-gnu -I/usr/include/c++/10.2.0/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/10.2.0/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/10.2.0/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../client/mainwindow.h -o moc_mainwindow.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_authwindow.h ui_mainwindow.h
+compiler_uic_make_all: ui_about.h ui_authwindow.h ui_mainwindow.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_authwindow.h ui_mainwindow.h
+	-$(DEL_FILE) ui_about.h ui_authwindow.h ui_mainwindow.h
+ui_about.h: ../client/about.ui \
+		/usr/bin/uic
+	/usr/bin/uic ../client/about.ui -o ui_about.h
+
 ui_authwindow.h: ../client/authwindow.ui \
 		/usr/bin/uic
 	/usr/bin/uic ../client/authwindow.ui -o ui_authwindow.h
@@ -901,25 +944,49 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
 
+about.o: ../client/about.cpp ../client/about.h \
+		ui_about.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o about.o ../client/about.cpp
+
 authwindow.o: ../client/authwindow.cpp ../client/authwindow.h \
+		../client/functions_for_client.h \
 		ui_authwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o authwindow.o ../client/authwindow.cpp
 
+functions_for_client.o: ../client/functions_for_client.cpp ../client/functions_for_client.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o functions_for_client.o ../client/functions_for_client.cpp
+
 main.o: ../client/main.cpp ../client/mainwindow.h \
-		../client/authwindow.h
+		../client/authwindow.h \
+		../client/functions_for_client.h \
+		ui_mainwindow.h \
+		../client/about.h \
+		../client/client.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../client/main.cpp
 
 mainwindow.o: ../client/mainwindow.cpp ../client/mainwindow.h \
 		../client/authwindow.h \
-		ui_mainwindow.h
+		../client/functions_for_client.h \
+		ui_mainwindow.h \
+		../client/about.h \
+		../client/client.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../client/mainwindow.cpp
+
+qrc_Resources.o: qrc_Resources.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_Resources.o qrc_Resources.cpp
+
+moc_about.o: moc_about.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_about.o moc_about.cpp
 
 moc_authwindow.o: moc_authwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_authwindow.o moc_authwindow.cpp
+
+moc_client.o: moc_client.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_client.o moc_client.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
