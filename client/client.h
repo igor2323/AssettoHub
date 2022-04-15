@@ -7,7 +7,7 @@
 #include <QtNetwork>
 #include <QByteArray>
 #include <QDebug>
-
+#include <QString>
 
 class Client;
 
@@ -48,6 +48,9 @@ class Client : public QObject
                 destroyer.initialize(p_instance);
             }
             return p_instance;
+        }
+        static void send_request_to_server(QString res){
+            mysocket.write(res.toLocal8Bit());
         }
     public slots:
 
