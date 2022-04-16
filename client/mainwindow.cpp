@@ -103,3 +103,12 @@ void MainWindow::on_ButtonStat_clicked()
 
 
 
+
+void MainWindow::on_uploadButton_clicked()
+{
+    upload UploadWindow;
+    UploadWindow.setModal(true);
+    UploadWindow.exec();
+
+}
+

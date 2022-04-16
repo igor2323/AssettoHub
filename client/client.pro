@@ -13,19 +13,22 @@ SOURCES += \
     authwindow.cpp \
     functions_for_client.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    upload.cpp
 
 HEADERS += \
     about.h \
     authwindow.h \
     client.h \
     functions_for_client.h \
-    mainwindow.h
+    mainwindow.h \
+    upload.h
 
 FORMS += \
     about.ui \
     authwindow.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    upload.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

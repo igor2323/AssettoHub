@@ -2,14 +2,22 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "authwindow.h"
+#include "ui_mainwindow.h"
 #include <QString>
 #include <QInputDialog>
-#include "ui_mainwindow.h"
-#include "about.h"
+
+
 #include "QMessageBox"
 #include <QPixmap>
+
+
 #include "client.h"
+
+
+#include "about.h"
+#include "authwindow.h"
+#include "upload.h"
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -37,5 +45,6 @@ private slots:
     void on_ButtonStat_clicked();
     void on_actionBy_car_triggered();
     void on_actionBy_Track_triggered();
+    void on_uploadButton_clicked();
 };
 #endif // MAINWINDOW_H
