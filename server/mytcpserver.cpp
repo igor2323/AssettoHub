@@ -1,17 +1,25 @@
-#include "mytcpserver.h"
-#include "functionsforserver.h"
-#include <QDebug>
-#include <QCoreApplication>
-#include <iostream>
+/*!
+ * \file
+ */
 
+#include "mytcpserver.h"
+
+/*!
+ * \brief Деструктор класса MyTcpServer.
+*/
 MyTcpServer::~MyTcpServer()
 {
     mTcpServer->close();
     //server_status=0;
 }
-MyTcpServer::MyTcpServer(QObject *parent) : QObject(parent){
-    mTcpServer = new QTcpServer(this);
 
+/*!
+ * \brief Конструктор класса MyTcpServer.
+ * Конструктор класса в котором мы открываем сервер на прослушивание и подключаемся к базе данных.
+*/
+MyTcpServer::MyTcpServer(QObject *parent) : QObject(parent){
+    DataBase::getInstance();
+    mTcpServer = new QTcpServer(this);
     connect(mTcpServer, &QTcpServer::newConnection,
             this, &MyTcpServer::slotNewConnection);
     if(!mTcpServer->listen(QHostAddress::Any, 33333)){
@@ -22,6 +30,9 @@ MyTcpServer::MyTcpServer(QObject *parent) : QObject(parent){
     }
 }
 
+/*!
+ * \brief Метод класса MyTcpServer, который подключает пользователя к серверу и выводит ему приветствие.
+*/
 void MyTcpServer::slotNewConnection(){
  //   if(server_status==1){
         QTcpSocket *tempSocket;
@@ -33,6 +44,9 @@ void MyTcpServer::slotNewConnection(){
    // }
 }
 
+/*!
+ * \brief Метод класса MyTcpServer, который считывает строку, которая вводится пользователем.
+*/
 void MyTcpServer::slotServerRead(){
     QTcpSocket *tempSock = (QTcpSocket*)sender();
     while(tempSock->bytesAvailable()>0){
@@ -42,7 +56,9 @@ void MyTcpServer::slotServerRead(){
                 tempSock->write(parsing(array));}
 }
 
-
+/*!
+ * \brief Метод класса MyTcpServer, который отключает пользователя от сервера.
+*/
 void MyTcpServer::slotClientDisconnected(){
         QTcpSocket *tempSock = (QTcpSocket*)sender();
         mTcpSocket.remove(tempSock);

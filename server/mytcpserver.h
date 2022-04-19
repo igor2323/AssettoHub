@@ -1,21 +1,22 @@
 #ifndef MYTCPSERVER_H
 #define MYTCPSERVER_H
+#include "functionsforserver.h"
 #include <QObject>
 #include <QTcpServer>
 #include <QTcpSocket>
-#include "functionsforserver.h"
 
 #include <list>
 #include <QtNetwork>
 #include <QByteArray>
 #include <QDebug>
 
-/*!
-* \brief The MyTcpServer class - класс для описания работы сервера
-*
-* Класс на основе QTcpServer, который ....
-*/
+//#include <iostream>
 
+/*!
+* \brief MyTcpServer - главный класс сервера.
+*
+* Класс MyTcpServer на основе QTcpServer, который реализует всю основную логику работы сервера.
+*/
 
 class MyTcpServer : public QObject
 {
@@ -33,6 +34,7 @@ private:
     std::list<QTcpSocket*> mTcpSocket;
     //int server_status;
 };
+
 #endif // MYTCPSERVER_H
 
 
