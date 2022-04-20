@@ -11,4 +11,5 @@ QByteArray reg(QString login, QString pass);
 QByteArray checkStat(QString login);
 QByteArray searchByTrack(QString Track);
 QByteArray searchByCar(QString car);
+QByteArray allSetups();
 #endif // FUNCTIONSFORSERVER_H

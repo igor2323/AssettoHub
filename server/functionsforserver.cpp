@@ -24,7 +24,7 @@ QByteArray parsing(QString data_from_client){
         return reg(data_from_client_list.at(0), data_from_client_list.at(1));}
 
     else if (nameOfFunc == "getAllSetups"){
-        return DataBase::getAllSetups();}
+        return allSetups();}
 
     else if (nameOfFunc == "checkstat"){
         return checkStat(data_from_client_list.at(0));}
@@ -88,6 +88,12 @@ QByteArray searchByCar(QString car){
 QByteArray searchByTrack(QString track){
     QByteArray result = "";
     result.append(DataBase::searchingSetupByTrack(track).toUtf8());
+    qDebug() << result;
+    return result;
+}
+QByteArray allSetups(){
+    QByteArray result = "";
+    result.append(DataBase::getAllSetups().toUtf8());
     qDebug() << result;
     return result;
 }

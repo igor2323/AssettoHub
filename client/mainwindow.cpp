@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     connect(ui_auth, &AuthWindow::send_data, this, &MainWindow::slot_show);
     ui->MainTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->MainTable->setColumnCount(4);
+    ui->MainTable->setRowCount(0);
 
 
 }
@@ -53,12 +54,15 @@ void MainWindow::on_actionAbout_product_triggered()
 
 
 //ПОИСК
+
+
+
                                    //ШТУКИ СПРАВА
 void MainWindow::on_ButtonByCar_clicked()
 {
     QString search = ui->SearchLineCar->text();
     qDebug() << search;
-    ui->textEdit->setText(searchSetByCar(search));
+    addToMainTable(searchSetByCar(search));
 
 
     update_statistic(AuthWindow::getNameOfUser());
@@ -68,8 +72,7 @@ void MainWindow::on_ButtonByTrack_clicked()
 {
     QString search = ui->SearchLineTrack->text();
     qDebug() << search;
-    ui->textEdit->setText(searchSetByTrack(search));
-
+    addToMainTable(searchSetByTrack(search));
 
     update_statistic(AuthWindow::getNameOfUser());
 }
@@ -79,8 +82,7 @@ void MainWindow::on_actionBy_car_triggered()
 {
     QString search = QInputDialog::getText(0, "Search", "Car:",QLineEdit::Normal);
     qDebug() << search;
-    ui->textEdit->setText(searchSetByCar(search));
-
+    addToMainTable(searchSetByCar(search));
 
     update_statistic(AuthWindow::getNameOfUser());
 }
@@ -89,12 +91,18 @@ void MainWindow::on_actionBy_Track_triggered()
 {
     QString search = QInputDialog::getText(0, "Search", "Track:", QLineEdit::Normal);
     qDebug() << search;
-    ui->textEdit->setText(searchSetByTrack(search));
-
+    addToMainTable(searchSetByTrack(search));
 
     update_statistic(AuthWindow::getNameOfUser());
-}
 
+}
+                                    //ВСЕ
+
+void MainWindow::on_pushButton_clicked()
+{
+    update_statistic(AuthWindow::getNameOfUser());
+    addToMainTable(getAllSetups());
+}
 
 
 
@@ -119,13 +127,7 @@ void MainWindow::on_uploadButton_clicked()
 
 }
 
-//ТЕСТ БД
 
-QString MainWindow::on_pushButton_clicked()
-{
-    QString res ="getAllSetups&";
-    return Client::send_request_to_server(res);
-}
 
 
 

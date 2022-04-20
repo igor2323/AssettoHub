@@ -11,6 +11,8 @@ QString check_statistic(QString log);
 
 QString searchSetByCar(QString car);
 QString searchSetByTrack(QString track);
+QString getAllSetups();
+
 
 void update_statistic(QString log);
 #endif // FUNCTIONS_FOR_CLIENT_H

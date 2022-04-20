@@ -77,6 +77,9 @@ class DataBase
             db.open();
             qDebug() << log + " " + pass;
             QSqlQuery query;
+            if (log == "" || pass == ""){
+                return "EmptyField";
+            }
             query.prepare("SELECT * FROM Users where login = :login and password = :password" );
             query.bindValue(":login", log);
             query.bindValue(":password", pass);
@@ -96,26 +99,7 @@ class DataBase
 
 
 
-        static QByteArray getAllSetups(){
-            QByteArray result;
-            db.open();
-            QSqlQuery query;
-            query.exec("SELECT * FROM Setup");
-            while(query.next()){
-                 result.append(query.value(0).toString());
-                 result.append("|");
-                 result.append(query.value(1).toString());
-                 result.append("|");
-                 result.append(query.value(2).toString());
-                 result.append("|");
-                 result.append(query.value(3).toString());
-                 result.append("/");
-            }
-            db.close();
-            query.clear();
-            qDebug() << result;
-            return result;
-        }
+
 
 
         static QString checkStat(QString log){
@@ -151,12 +135,32 @@ class DataBase
             return result;
            }
 
+        static QString getAllSetups(){
+            QByteArray result;
+            db.open();
+            QSqlQuery query;
+            query.exec("SELECT * FROM Setups");
+            while(query.next()){
+                 result.append(query.value(0).toString());
+                 result.append("|");
+                 result.append(query.value(1).toString());
+                 result.append("|");
+                 result.append(query.value(2).toString());
+                 result.append("|");
+                 result.append(query.value(3).toString());
+                 result.append("}");
+            }
+            db.close();
+            query.clear();
+            qDebug() << result;
+            return result;
+        }
 
         static QString searchingSetupByCar(QString car){
             QString result;
             db.open();
             QSqlQuery query;
-            query.prepare("SELECT * FROM Setup WHERE car_name = :carName");
+            query.prepare("SELECT * FROM Setups WHERE car_name = :carName");
             query.bindValue(":carName", car);
             query.exec();
             QSqlRecord rec = query.record();
@@ -168,11 +172,11 @@ class DataBase
                  result.append(query.value(2).toString());
                  result.append("|");
                  result.append(query.value(3).toString());
-                 result.append("/");
+                 result.append("}");
             }
             db.close();
             query.clear();
-            return result;
+            return result + " ";
            }
 
 
@@ -180,7 +184,7 @@ class DataBase
             QString result;
             db.open();
             QSqlQuery query;
-            query.prepare("SELECT * FROM Setup WHERE track_name = :trackName");
+            query.prepare("SELECT * FROM Setups WHERE track_name = :trackName");
             query.bindValue(":trackName", track);
             query.exec();
             QSqlRecord rec = query.record();
@@ -192,11 +196,11 @@ class DataBase
                  result.append(query.value(2).toString());
                  result.append("|");
                  result.append(query.value(3).toString());
-                 result.append("/");
+                 result.append("}");
             }
             db.close();
             query.clear();
-            return result;
+            return result + " ";
            }
 
 
@@ -204,7 +208,7 @@ class DataBase
             QByteArray result;
             db.open();
             QSqlQuery query;
-            query.prepare("INSERT INTO Setup VALUES (:car_name, :track_name, :comment,:link)");
+            query.prepare("INSERT INTO Setups VALUES (:car_name, :track_name, :link,:comment)");
             query.bindValue(":car_name", car);
             query.bindValue(":track_name", track);
             query.bindValue(":comment", comment);
@@ -212,7 +216,7 @@ class DataBase
             query.exec();
             db.close();
             query.clear();
-            return result;
+            return result + " ";
            }
 
 };

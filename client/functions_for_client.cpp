@@ -38,3 +38,8 @@ QString searchSetByTrack(QString track){
     return Client::send_request_to_server(res);
 }
 
+QString getAllSetups(){
+    QString res = "getAllSetups&";
+    qDebug() << res;
+    return Client::send_request_to_server(res);
+}

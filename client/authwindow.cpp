@@ -75,9 +75,20 @@ void AuthWindow::on_regEnterButton_clicked()
     emit send_data(log);
     hide();
     }
+    else if (resultFromServer == "AlreadyCreated"){
+        QMessageBox notcorrect;
+        notcorrect.setText("Данный пользователь уже существует");
+        notcorrect.exec();
+
+    }
+    else if (resultFromServer=="EmptyField"){
+        QMessageBox notcorrect;
+        notcorrect.setText("Проверьте введённые данные");
+        notcorrect.exec();
+    }
     else{
         QMessageBox notcorrect;
-        notcorrect.setText("Что-то не работает");
+        notcorrect.setText("Что-то пошло не так");
         notcorrect.exec();
     }
 }

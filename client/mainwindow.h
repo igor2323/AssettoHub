@@ -32,9 +32,47 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void addToMainTable(QString car, QString track, QString comment, QString link){
-    };
 
+
+    void addToMainTable(QString dataFromServer){
+        if (dataFromServer == " "){
+            QMessageBox nullBox;
+            nullBox.setText("Увы, такого тут нет((");
+            nullBox.exec();
+        }
+        else {
+
+            for ( int i = 0; i < ui->MainTable->rowCount(); ++i )
+            {
+                ui->MainTable->removeRow(i);
+            }
+            QStringList bigRecord = dataFromServer.split(QLatin1Char('}'));
+            for (int i = 0; i<bigRecord.length(); i++){
+                ui->MainTable->setRowCount(ui->MainTable->rowCount()+1);
+                QStringList oneRecord = bigRecord[i].split("|");
+                for (int j = 0; j<oneRecord.length(); j++){
+                    if (j!=2){
+                        QTableWidgetItem *item = new QTableWidgetItem(tr("%1").arg(oneRecord[j]));
+                        qDebug() << item->text();
+                        ui->MainTable->setItem(i,j, item);
+                    }
+                    else{
+                        QLabel *hyperLabel = new QLabel;
+                        hyperLabel->setTextInteractionFlags(Qt::LinksAccessibleByMouse);
+                        hyperLabel->setOpenExternalLinks(true);
+                        hyperLabel->setTextFormat(Qt::RichText);
+                        hyperLabel->setText(createHREF(oneRecord[j]));
+                        qDebug() << hyperLabel->text();
+                        ui->MainTable->setCellWidget(i,j, hyperLabel);
+                    }
+                }
+            }
+        }
+
+    };
+    QString createHREF(QString link){
+        return ("<a href=" + QString(34) + link + QString(34) + ">" + link + "</a>");
+    }
 private:
     Ui::MainWindow *ui;
     AuthWindow *ui_auth;
@@ -52,7 +90,7 @@ private slots:
     void on_actionBy_car_triggered();
     void on_actionBy_Track_triggered();
     void on_uploadButton_clicked();
-    QString on_pushButton_clicked();
+    void on_pushButton_clicked();
 
 
 };
