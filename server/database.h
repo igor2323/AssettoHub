@@ -55,9 +55,47 @@ class DataBase
 
 
 
-        static int Test1() {
-            return 1;
-        };
+//        static int Test1() {
+//            return 1;
+//        };
+
+        static QString auth(QString log, QString pass){
+            db.open();
+            qDebug() << log + " " + pass;
+            QSqlQuery query;
+            query.prepare("SELECT * FROM Users where login = :login and password = :password" );
+            query.bindValue(":login", log);
+            query.bindValue(":password", pass);
+            query.exec();
+            if (query.next()){
+                return "True";
+            }
+            else return "False";
+        }
+
+        static QString reg(QString log, QString pass){
+            db.open();
+            qDebug() << log + " " + pass;
+            QSqlQuery query;
+            query.prepare("SELECT * FROM Users where login = :login and password = :password" );
+            query.bindValue(":login", log);
+            query.bindValue(":password", pass);
+            query.exec();
+            if (query.next()){
+                return "AlreadyCreated";
+            }
+            else{
+                query.prepare("INSERT INTO Users VALUES (:login, :password, 0)" );
+                query.bindValue(":login", log);
+                query.bindValue(":password", pass);
+                query.exec();
+                return "True";
+            }
+            return "Smth went wrong...";
+        }
+
+
+
         static QByteArray getAllSetups(){
             QByteArray result;
             db.open();
@@ -80,11 +118,14 @@ class DataBase
         }
 
 
-        static QByteArray checkStat(QString log){
+        static QString checkStat(QString log){
+            qDebug() << log;
             QByteArray result;
             db.open();
             QSqlQuery query;
-            query.exec("SELECT statistics FROM Users WHERE login = 'Artem'");
+            query.prepare("SELECT statistics FROM Users WHERE login = :loginOfUser");
+            query.bindValue(":loginOfUser", log);
+            query.exec();
             QSqlRecord rec = query.record();
             const int statIndex = rec.indexOf("statistics");
 
@@ -101,54 +142,61 @@ class DataBase
             QByteArray result;
             db.open();
             QSqlQuery query;
-            query.exec("UPDATE Users SET statistics=statistics+1 WHERE login='Artem'");
+            query.prepare("UPDATE Users SET statistics=statistics+1 WHERE login=:logOfUser");
 
-            //query.exec("UPDATE Users SET statistics=statistics+1 WHERE login=:log");
-            //query.bindValue(":log", log);
-
+            query.bindValue(":logOfUser", log);
+            query.exec();
             db.close();
             query.clear();
             return result;
            }
 
 
-        static QByteArray searchingSetupByCar(QString car){
-            QByteArray result;
-            db.open();
-            QSqlQuery query;
-            query.prepare("SELECT * FROM Setup WHERE car_name = 'R8'");
-            //query.bindValue(":car", car);
-            QSqlRecord rec = query.record();
-            const int statIndex = rec.indexOf("car_name");
-
-            while(query.next())
-                 result.append(query.value(statIndex).toString());
-            db.close();
-            query.clear();
-            return result;
-           }
-
-
-        static QByteArray searchingSetupByTrack(QString track){
+        static QString searchingSetupByCar(QString car){
             QString result;
-            QByteArray r;
             db.open();
             QSqlQuery query;
-            query.prepare("SELECT car_name FROM Setup WHERE track_name = 'Monza'");
-            //query.bindValue(":track", track);
+            query.prepare("SELECT * FROM Setup WHERE car_name = :carName");
+            query.bindValue(":carName", car);
             query.exec();
             QSqlRecord rec = query.record();
-            const int carIndex = rec.indexOf("car_name");
-
             while(query.next()){
-                 result.append(query.value(carIndex).toString());
-                qDebug() << query.value(carIndex).toString()   ;
+                 result.append(query.value(0).toString());
+                 result.append("|");
+                 result.append(query.value(1).toString());
+                 result.append("|");
+                 result.append(query.value(2).toString());
+                 result.append("|");
+                 result.append(query.value(3).toString());
+                 result.append("/");
             }
             db.close();
             query.clear();
-            qDebug() << rec;
-            qDebug() << result;
-            return r;
+            return result;
+           }
+
+
+        static QString searchingSetupByTrack(QString track){
+            QString result;
+            db.open();
+            QSqlQuery query;
+            query.prepare("SELECT * FROM Setup WHERE track_name = :trackName");
+            query.bindValue(":trackName", track);
+            query.exec();
+            QSqlRecord rec = query.record();
+            while(query.next()){
+                 result.append(query.value(0).toString());
+                 result.append("|");
+                 result.append(query.value(1).toString());
+                 result.append("|");
+                 result.append(query.value(2).toString());
+                 result.append("|");
+                 result.append(query.value(3).toString());
+                 result.append("/");
+            }
+            db.close();
+            query.clear();
+            return result;
            }
 
 

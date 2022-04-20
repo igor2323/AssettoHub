@@ -4,12 +4,13 @@
 #include <QDebug>
 #include "client.h"
 
-void auth(QString log, QString pass);
-void reg(QString log, QString pass);
+QString auth(QString log, QString pass);
+QString reg(QString log, QString pass);
+
+QString check_statistic(QString log);
+
+QString searchSetByCar(QString car);
+QString searchSetByTrack(QString track);
+
 void update_statistic(QString log);
-void check_statistic(QString log);
-void searchSetByCar(QString car);
-void searchSetByTrack(QString track);
-
-
 #endif // FUNCTIONS_FOR_CLIENT_H

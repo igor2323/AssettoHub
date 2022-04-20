@@ -1,6 +1,9 @@
 #include "authwindow.h"
 #include "ui_authwindow.h"
 
+
+
+
 AuthWindow::AuthWindow(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AuthWindow)
@@ -42,24 +45,41 @@ void AuthWindow::on_regLoginButton_clicked()
 
 void AuthWindow::on_authEnterButton_clicked()
 {
+    loginOfUser = ui->loginInput->text();
     QString log = ui->loginInput->text();
-    QString pass = ui->passwordInput->text();
 
-    //Проверка на авторизацию
+    QString pass = ui->passwordInput->text();
+    QString resultFromServer = auth(log, pass);
+    if (resultFromServer == "True"){
     auth(log,pass);
     emit send_data(log);
     hide();
+    }
+    else{
+        QMessageBox notcorrect;
+        notcorrect.setText("Неверный логин или пароль");
+        notcorrect.exec();
+    }
 }
 
 
 void AuthWindow::on_regEnterButton_clicked()
 {
+    loginOfUser = ui->loginInput->text();
     QString log = ui->loginInput->text();
     QString pass = ui->passwordInput->text();
+    QString resultFromServer = reg(log, pass);
 
-    //Проверка на регистрацию
+    if (resultFromServer == "True"){
     reg(log,pass);
     emit send_data(log);
     hide();
+    }
+    else{
+        QMessageBox notcorrect;
+        notcorrect.setText("Что-то не работает");
+        notcorrect.exec();
+    }
 }
+
 

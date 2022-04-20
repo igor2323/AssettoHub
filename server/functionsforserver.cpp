@@ -12,10 +12,6 @@
  * \return возвращает результат работы команды, поданной на вход.
 */
 QByteArray parsing(QString data_from_client){
-    /* data_from_client = NameOfFunc&Param1&Param2&Param3
-    * Цель парсинга:
-    * return NameOfFunc(Param1&Param2&Param3)
-    */
     QStringList data_from_client_list = data_from_client.split(QLatin1Char('&'));
     QString nameOfFunc = data_from_client_list.front();
     data_from_client_list.pop_front();
@@ -25,25 +21,22 @@ QByteArray parsing(QString data_from_client){
         return auth(data_from_client_list.at(0), data_from_client_list.at(1));}
 
     else if (nameOfFunc == "reg"){
-        return reg(data_from_client_list.at(0), data_from_client_list.at(1), data_from_client_list.at(2));}
+        return reg(data_from_client_list.at(0), data_from_client_list.at(1));}
 
     else if (nameOfFunc == "getAllSetups"){
         return DataBase::getAllSetups();}
 
     else if (nameOfFunc == "checkstat"){
-                        qDebug() << "qwerty";
-        return DataBase::checkStat(data_from_client_list.at(0));}
+        return checkStat(data_from_client_list.at(0));}
 
     else if (nameOfFunc == "updatestat"){
         return DataBase::changeStat(data_from_client_list.at(0));}
 
     else if (nameOfFunc == "searchByCar"){
-        qDebug() << "qwerty";
-        return DataBase::searchingSetupByCar(data_from_client_list.at(0));}
+        return searchByCar(data_from_client_list.at(0));}
 
     else if (nameOfFunc == "searchByTrack"){
-        qDebug() << "qwerty";
-        return DataBase::searchingSetupByTrack(data_from_client_list.at(0));}
+        return searchByTrack(data_from_client_list.at(0));}
 
     else if (nameOfFunc == "uploadSetup"){
         return DataBase::uploadSetup(data_from_client_list.at(0),data_from_client_list.at(1),data_from_client_list.at(2),data_from_client_list.at(3));
@@ -60,8 +53,10 @@ QByteArray parsing(QString data_from_client){
  * \return возвращает результат аутентификации.
 */
 QByteArray auth(QString log, QString pass){
-    qDebug() << DataBase::Test1();
-    return "auth done\n";
+    QByteArray result = "";
+    result.append(DataBase::auth(log, pass).toUtf8());
+    qDebug() << result;
+    return result;
 }
 
 /*!
@@ -71,7 +66,28 @@ QByteArray auth(QString log, QString pass){
  * \param [in] mail - строка, которая содержит необязательный электронный адрес почты пользователя.
  * \return возвращает результат регистрации.
 */
-QByteArray reg(QString log, QString pass, QString mail){
-    return "reg done\n";
+QByteArray reg(QString log, QString pass){
+    QByteArray result = "";
+    result.append(DataBase::reg(log, pass).toUtf8());
+    qDebug() << result;
+    return result;
 }
 
+QByteArray checkStat(QString log){
+    QByteArray result = "";
+    result.append(DataBase::checkStat(log).toUtf8());
+    qDebug() << result;
+    return result;
+}
+QByteArray searchByCar(QString car){
+    QByteArray result = "";
+    result.append(DataBase::searchingSetupByCar(car).toUtf8());
+    qDebug() << result;
+    return result;
+}
+QByteArray searchByTrack(QString track){
+    QByteArray result = "";
+    result.append(DataBase::searchingSetupByTrack(track).toUtf8());
+    qDebug() << result;
+    return result;
+}

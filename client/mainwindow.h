@@ -32,7 +32,8 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
+    void addToMainTable(QString car, QString track, QString comment, QString link){
+    };
 
 private:
     Ui::MainWindow *ui;
@@ -51,7 +52,7 @@ private slots:
     void on_actionBy_car_triggered();
     void on_actionBy_Track_triggered();
     void on_uploadButton_clicked();
-    void on_pushButton_clicked();
+    QString on_pushButton_clicked();
 
 
 };
