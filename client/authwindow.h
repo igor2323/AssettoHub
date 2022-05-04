@@ -19,15 +19,6 @@ public:
     ~AuthWindow();
 
 
-    inline static QString loginOfUser;
-    static QString getNameOfUser()
-        {
-            return loginOfUser;
-        }
-    static void clearNameOfUser()
-        {
-            loginOfUser.clear();
-        }
 
 private slots:
     void on_authRegButton_clicked();

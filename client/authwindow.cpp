@@ -45,7 +45,6 @@ void AuthWindow::on_regLoginButton_clicked()
 
 void AuthWindow::on_authEnterButton_clicked()
 {
-    loginOfUser = ui->loginInput->text();
     QString log = ui->loginInput->text();
 
     QString pass = ui->passwordInput->text();
@@ -65,7 +64,6 @@ void AuthWindow::on_authEnterButton_clicked()
 
 void AuthWindow::on_regEnterButton_clicked()
 {
-    loginOfUser = ui->loginInput->text();
     QString log = ui->loginInput->text();
     QString pass = ui->passwordInput->text();
     QString resultFromServer = reg(log, pass);

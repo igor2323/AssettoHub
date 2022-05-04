@@ -44,16 +44,25 @@ void MyTcpServer::slotNewConnection(){
    // }
 }
 
+
 /*!
  * \brief Метод класса MyTcpServer, который считывает строку, которая вводится пользователем.
 */
 void MyTcpServer::slotServerRead(){
     QTcpSocket *tempSock = (QTcpSocket*)sender();
-    while(tempSock->bytesAvailable()>0){
-                QString str = tempSock->readAll();
-                QByteArray array;
-                array.append(str);
-                tempSock->write(parsing(array));}
+    QString res="";
+    while(tempSock->bytesAvailable()>0)
+    {
+        QByteArray array =tempSock->readAll();
+        res.append(array);
+        //mTcpSocket->write(array);
+    }
+    //qDebug()<<res+"pppp";
+    QByteArray array = parsing(res,tempSock->socketDescriptor());
+    //qDebug()<<array+"pppp";
+    qDebug()<<array;
+    //qDebug()<<tempSock->socketDescriptor();
+    tempSock->write(array);
 }
 
 /*!

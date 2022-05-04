@@ -35,10 +35,12 @@ class Client : public QObject
             connect(&mysocket, &QTcpSocket::readyRead,this,&Client::slotClientRead);
             connect(&mysocket,&QTcpSocket::disconnected,this,&Client::slotDisconnected);
         }
+
         Client(const Client& )= delete;
         Client& operator = (Client &) = delete;
         ~Client() {
             //AuthWindow::clearNameOfUser();
+
             mysocket.close();
         }
         friend class ClientDestroyer;
@@ -72,6 +74,7 @@ class Client : public QObject
 
     void slotDisconnected()
     {
+
         mysocket.close();
     }
     static void slotClientRead(){

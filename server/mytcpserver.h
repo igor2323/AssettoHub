@@ -27,7 +27,6 @@ public:
 public slots:
     void slotNewConnection();
     void slotClientDisconnected();
-
     void slotServerRead();
 private:
     QTcpServer * mTcpServer;

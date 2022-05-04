@@ -65,7 +65,7 @@ void MainWindow::on_ButtonByCar_clicked()
     addToMainTable(searchSetByCar(search));
 
 
-    update_statistic(AuthWindow::getNameOfUser());
+    update_statistic();
 }
 
 void MainWindow::on_ButtonByTrack_clicked()
@@ -74,7 +74,7 @@ void MainWindow::on_ButtonByTrack_clicked()
     qDebug() << search;
     addToMainTable(searchSetByTrack(search));
 
-    update_statistic(AuthWindow::getNameOfUser());
+    update_statistic();
 }
 
                                      //ВЫПАДАЮЩЕЕ МЕНЮ
@@ -84,7 +84,7 @@ void MainWindow::on_actionBy_car_triggered()
     qDebug() << search;
     addToMainTable(searchSetByCar(search));
 
-    update_statistic(AuthWindow::getNameOfUser());
+    update_statistic();
 }
 
 void MainWindow::on_actionBy_Track_triggered()
@@ -93,14 +93,14 @@ void MainWindow::on_actionBy_Track_triggered()
     qDebug() << search;
     addToMainTable(searchSetByTrack(search));
 
-    update_statistic(AuthWindow::getNameOfUser());
+    update_statistic();
 
 }
                                     //ВСЕ
 
 void MainWindow::on_pushButton_clicked()
 {
-    update_statistic(AuthWindow::getNameOfUser());
+    update_statistic();
     addToMainTable(getAllSetups());
 }
 
@@ -112,7 +112,7 @@ void MainWindow::on_pushButton_clicked()
 void MainWindow::on_ButtonStat_clicked()
 {
     QMessageBox temp;
-    temp.setText("Поисков: " + check_statistic(AuthWindow::getNameOfUser()));
+    temp.setText("Поисков: " + check_statistic());
     temp.exec();
 }
 

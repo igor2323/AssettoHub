@@ -35,6 +35,7 @@ public:
 
 
     void addToMainTable(QString dataFromServer){
+        ui->MainTable->clearContents();
         if (dataFromServer == " "){
             QMessageBox nullBox;
             nullBox.setText("Увы, такого тут нет((");

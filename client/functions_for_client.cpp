@@ -10,14 +10,14 @@ QString reg(QString log, QString pass){
     return Client::send_request_to_server(res);
 }
 
-QString check_statistic(QString log){
-    QString res = "checkstat&" + log + "&";
+QString check_statistic(){
+    QString res = "checkstat&";
     return Client::send_request_to_server(res);
 }
 
 
-void update_statistic(QString log){
-    QString res = "updatestat&" + log + "&";
+void update_statistic(){
+    QString res = "updatestat&";
     qDebug() << res;
     Client::send_request_to_server(res);
 

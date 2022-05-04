@@ -30,8 +30,8 @@ class DataBase
     protected:
         DataBase(){
             db = QSqlDatabase::addDatabase("QSQLITE");
-            QString path = "D:/MosPoly/AC_testdb/server/dataBase/";
-            db.setDatabaseName(path + "DataBase.db");
+           QString path = "..//server/dataBase/";
+            db.setDatabaseName(path + "DataBase.db");//
 
             if (!db.open())
                 qDebug() << db.lastError().text();
@@ -73,14 +73,14 @@ class DataBase
             else return "False";
         }
 
-        static QString reg(QString log, QString pass){
+        static QString reg(QString log, QString pass, int socketDesc){
             db.open();
             qDebug() << log + " " + pass;
             QSqlQuery query;
             if (log == "" || pass == ""){
                 return "EmptyField";
             }
-            query.prepare("SELECT * FROM Users where login = :login and password = :password" );
+            query.prepare("SELECT * FROM Users where login = :login" );
             query.bindValue(":login", log);
             query.bindValue(":password", pass);
             query.exec();
@@ -88,9 +88,10 @@ class DataBase
                 return "AlreadyCreated";
             }
             else{
-                query.prepare("INSERT INTO Users VALUES (:login, :password, 0)" );
+                query.prepare("INSERT INTO Users VALUES (:login, :password, 0, :sock)" );
                 query.bindValue(":login", log);
                 query.bindValue(":password", pass);
+                query.bindValue(":sock", socketDesc);
                 query.exec();
                 return "True";
             }
@@ -102,13 +103,12 @@ class DataBase
 
 
 
-        static QString checkStat(QString log){
-            qDebug() << log;
+        static QString checkStat(int socketDesc){
             QByteArray result;
             db.open();
             QSqlQuery query;
-            query.prepare("SELECT statistics FROM Users WHERE login = :loginOfUser");
-            query.bindValue(":loginOfUser", log);
+            query.prepare("SELECT statistics FROM Users WHERE sock = :socketDesc");
+            query.bindValue(":socketDesc", socketDesc);
             query.exec();
             QSqlRecord rec = query.record();
             const int statIndex = rec.indexOf("statistics");
@@ -122,13 +122,13 @@ class DataBase
            }
 
 
-        static QByteArray changeStat(QString log){
+        static QByteArray changeStat(int socketDesc){
             QByteArray result;
             db.open();
             QSqlQuery query;
-            query.prepare("UPDATE Users SET statistics=statistics+1 WHERE login=:logOfUser");
+            query.prepare("UPDATE Users SET statistics=statistics+1 WHERE sock=:socketDesc");
 
-            query.bindValue(":logOfUser", log);
+            query.bindValue(":socketDesc", socketDesc);
             query.exec();
             db.close();
             query.clear();
@@ -218,7 +218,18 @@ class DataBase
             query.clear();
             return result + " ";
            }
-
+        static QByteArray change_status(QString log, int sock_desc)
+        {
+            db.open();
+            QSqlQuery query;
+            query.prepare("UPDATE Users SET sock=:sock_desc WHERE login=:login");
+            query.bindValue(":sock_desc", sock_desc);
+            query.bindValue(":login", log);
+            query.exec();
+            db.close();
+            query.clear();
+            return "true";
+        }
 };
 
 
