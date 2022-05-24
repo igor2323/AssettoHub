@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>1002</width>
     <height>600</height>
    </rect>
   </property>
@@ -17,10 +17,10 @@
    <widget class="QLabel" name="NameOfUser">
     <property name="geometry">
      <rect>
-      <x>570</x>
-      <y>20</y>
-      <width>221</width>
-      <height>51</height>
+      <x>830</x>
+      <y>30</y>
+      <width>121</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
@@ -40,9 +40,9 @@
    <widget class="QTableWidget" name="MainTable">
     <property name="geometry">
      <rect>
-      <x>40</x>
+      <x>10</x>
       <y>170</y>
-      <width>591</width>
+      <width>801</width>
       <height>551</height>
      </rect>
     </property>
@@ -105,6 +105,24 @@
       <string>Name of the setup</string>
      </property>
     </column>
+    <column>
+     <property name="text">
+      <string>Author</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Rating</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Est. time</string>
+     </property>
+     <property name="whatsThis">
+      <string extracomment="Ожидаемое (лучшее) время"/>
+     </property>
+    </column>
    </widget>
    <widget class="QGroupBox" name="SearchBox">
     <property name="enabled">
@@ -112,9 +130,9 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>640</x>
+      <x>830</x>
       <y>170</y>
-      <width>151</width>
+      <width>121</width>
       <height>291</height>
      </rect>
     </property>
@@ -124,8 +142,8 @@
     <widget class="QLineEdit" name="SearchLineCar">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>80</y>
+       <x>10</x>
+       <y>60</y>
        <width>101</width>
        <height>24</height>
       </rect>
@@ -137,8 +155,8 @@
     <widget class="QLineEdit" name="SearchLineTrack">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>180</y>
+       <x>10</x>
+       <y>150</y>
        <width>101</width>
        <height>24</height>
       </rect>
@@ -153,8 +171,8 @@
     <widget class="QPushButton" name="ButtonByCar">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>110</y>
+       <x>10</x>
+       <y>90</y>
        <width>101</width>
        <height>24</height>
       </rect>
@@ -166,8 +184,8 @@
     <widget class="QPushButton" name="ButtonByTrack">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>210</y>
+       <x>10</x>
+       <y>180</y>
        <width>101</width>
        <height>24</height>
       </rect>
@@ -181,7 +199,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
+      <y>30</y>
       <width>101</width>
       <height>81</height>
      </rect>
@@ -196,21 +214,21 @@
    <widget class="QPushButton" name="ButtonStat">
     <property name="geometry">
      <rect>
-      <x>620</x>
-      <y>80</y>
+      <x>830</x>
+      <y>70</y>
       <width>121</width>
       <height>24</height>
      </rect>
     </property>
     <property name="text">
-     <string>Statistic of searching</string>
+     <string>Account Information</string>
     </property>
    </widget>
    <widget class="QPushButton" name="uploadButton">
     <property name="geometry">
      <rect>
-      <x>620</x>
-      <y>130</y>
+      <x>830</x>
+      <y>110</y>
       <width>121</width>
       <height>24</height>
      </rect>
@@ -232,13 +250,26 @@
      <string>Show all</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="getPremium">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1001</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Get PREMIUM status </string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>1002</width>
      <height>21</height>
     </rect>
    </property>

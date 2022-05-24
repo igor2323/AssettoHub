@@ -17,9 +17,11 @@ upload::~upload()
 
 void upload::on_pushButton_clicked()
 {
-    QString res = "uploadSetup&" + ui->upload_car_name->text() + "&" + ui->upload_track_name->text() + "&" + ui->upload_comment->text() + "&" + ui->upload_link->text() + "&";
-    qDebug() << res;
-    Client::send_request_to_server(res);
+    QString prem;
+    if (ui->premToggle->isChecked()){
+        prem = "1";
+    } else prem = "0";
+    uploadSetups(ui->upload_car_name->text(),ui->upload_track_name->text(),ui->upload_comment->text(),ui->upload_link->text(), ui->upload_time->text(), prem);
     close();
 }
 

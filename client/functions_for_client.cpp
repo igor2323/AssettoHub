@@ -27,19 +27,36 @@ void update_statistic(){
 
 
 QString searchSetByCar(QString car){
-    QString res = "searchByCar&" + car + "&";
+    QString res = "searchByCar&" + car + "&" + checkPremium() + "&";
     qDebug() << res;
     return Client::send_request_to_server(res);
 }
 
 QString searchSetByTrack(QString track){
-    QString res = "searchByTrack&" + track + "&";
+    QString res = "searchByTrack&" + track + "&" + checkPremium() + "&";
     qDebug() << res;
     return Client::send_request_to_server(res);
 }
 
-QString getAllSetups(){
-    QString res = "getAllSetups&";
+QString getAllSetups(QString prem){
+    QString res = "getAllSetups&" + prem + "&";
     qDebug() << res;
     return Client::send_request_to_server(res);
+}
+
+QString uploadSetups(QString car,QString track, QString comment, QString link, QString time, QString prem){
+    QString res = "uploadSetup&" + car + "&" + track + "&" + comment + "&" + link + "&" + AuthWindow::getNameOfUser() + "&" + time + "&" + prem + "&";
+    qDebug() << res;
+    return Client::send_request_to_server(res);
+}
+QString getPrem(){
+    return Client::send_request_to_server("getPremium&");
+}
+QString checkPremium(){
+    return Client::send_request_to_server("checkPremium&");
+}
+
+QString getInformation()
+{
+    return Client::send_request_to_server("getInformation&");
 }

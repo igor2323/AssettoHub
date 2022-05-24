@@ -19,7 +19,7 @@
      <x>180</x>
      <y>110</y>
      <width>381</width>
-     <height>171</height>
+     <height>251</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -51,13 +51,30 @@
       </property>
      </widget>
     </item>
+    <item>
+     <widget class="QTimeEdit" name="upload_time">
+      <property name="currentSection">
+       <enum>QDateTimeEdit::HourSection</enum>
+      </property>
+      <property name="displayFormat">
+       <string>hh:mm.s</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QCheckBox" name="premToggle">
+      <property name="text">
+       <string>Premium Setup</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>320</x>
-     <y>330</y>
+     <x>470</x>
+     <y>390</y>
      <width>91</width>
      <height>24</height>
     </rect>

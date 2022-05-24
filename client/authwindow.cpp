@@ -46,7 +46,7 @@ void AuthWindow::on_regLoginButton_clicked()
 void AuthWindow::on_authEnterButton_clicked()
 {
     QString log = ui->loginInput->text();
-
+    loginOfUser = log;
     QString pass = ui->passwordInput->text();
     QString resultFromServer = auth(log, pass);
     if (resultFromServer == "True"){

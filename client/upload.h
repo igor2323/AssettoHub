@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "client.h"
+#include "functions_for_client.h"
 
 namespace Ui {
 class upload;

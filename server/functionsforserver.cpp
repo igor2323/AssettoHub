@@ -26,7 +26,7 @@ QByteArray parsing(QString data_from_client, int socketDesc){
         return reg(data_from_client_list.at(0), data_from_client_list.at(1), socketDesc);}
 
     else if (nameOfFunc == "getAllSetups"){
-        return allSetups();}
+        return allSetups(data_from_client_list.at(0));}
 
     else if (nameOfFunc == "checkstat"){
         return checkStat(socketDesc);}
@@ -35,16 +35,26 @@ QByteArray parsing(QString data_from_client, int socketDesc){
         return DataBase::changeStat(socketDesc);}
 
     else if (nameOfFunc == "searchByCar"){
-        return searchByCar(data_from_client_list.at(0));}
+        return searchByCar(data_from_client_list.at(0), data_from_client_list.at(1));}
 
     else if (nameOfFunc == "searchByTrack"){
-        return searchByTrack(data_from_client_list.at(0));}
+        return searchByTrack(data_from_client_list.at(0), data_from_client_list.at(1));}
 
     else if (nameOfFunc == "uploadSetup"){
-        return DataBase::uploadSetup(data_from_client_list.at(0),data_from_client_list.at(1),data_from_client_list.at(2),data_from_client_list.at(3));
+        return uploadSetup(data_from_client_list.at(0),data_from_client_list.at(1),data_from_client_list.at(2),data_from_client_list.at(3), data_from_client_list.at(4),
+                           data_from_client_list.at(5),data_from_client_list.at(6), socketDesc);}
 
+    else if (nameOfFunc == "getPremium"){
+        return getPrem(socketDesc);}
+
+    else if (nameOfFunc == "checkPremium"){
+        return checkPrem(socketDesc);}
+
+    else if (nameOfFunc == "getInformation"){
+        return getInformation(socketDesc);
     }else
-        return "error\n";
+
+        return "error";
 
 }
 
@@ -81,29 +91,52 @@ QByteArray checkStat(int socketDesc){
     qDebug() << result;
     return result;
 }
-QByteArray searchByCar(QString car){
+QByteArray searchByCar(QString car, QString prem){
     QByteArray result = "";
-    result.append(DataBase::searchingSetupByCar(car).toUtf8());
+    result.append(DataBase::searchingSetupByCar(car, prem).toUtf8());
     qDebug() << result;
     return result;
 }
-QByteArray searchByTrack(QString track){
+QByteArray searchByTrack(QString track, QString prem){
     QByteArray result = "";
-    result.append(DataBase::searchingSetupByTrack(track).toUtf8());
+    result.append(DataBase::searchingSetupByTrack(track, prem).toUtf8());
     qDebug() << result;
     return result;
 }
-QByteArray allSetups(){
+QByteArray allSetups(QString prem){
     QByteArray result = "";
-    result.append(DataBase::getAllSetups().toUtf8());
+    result.append(DataBase::getAllSetups(prem).toUtf8());
+    qDebug() << result;
+    return result;
+}
+QByteArray uploadSetup(QString car,QString track, QString comment, QString link, QString author, QString time, QString prem,int sock_desc){
+    QByteArray result = "";
+    result.append(DataBase::uploadSetup(car,track, comment,link,author, time, prem,sock_desc));
     qDebug() << result;
     return result;
 }
 QByteArray change_sock_desc(QString login, int sock_desc)
 {
-    //qDebug()<<login+"tttt";
     QByteArray result;
     result.append(DataBase::change_status(login, sock_desc));
-    //qDebug()<<result;
+    return result;
+}
+QByteArray getPrem(int sock_desc)
+{
+    QByteArray result;
+    result.append(DataBase::getPrem(sock_desc));
+    return result;
+}
+QByteArray checkPrem(int sock_desc)
+{
+    QByteArray result;
+    result.append(DataBase::checkPrem(sock_desc));
+    return result;
+}
+
+QByteArray getInformation(int sock_desc)
+{
+    QByteArray result;
+    result.append(DataBase::getInformation(sock_desc));
     return result;
 }

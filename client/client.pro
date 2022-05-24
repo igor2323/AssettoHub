@@ -13,6 +13,7 @@ SOURCES += \
     about.cpp \
     authwindow.cpp \
     functions_for_client.cpp \
+    information.cpp \
     main.cpp \
     mainwindow.cpp \
     upload.cpp
@@ -22,12 +23,14 @@ HEADERS += \
     authwindow.h \
     client.h \
     functions_for_client.h \
+    information.h \
     mainwindow.h \
     upload.h
 
 FORMS += \
     about.ui \
     authwindow.ui \
+    information.ui \
     mainwindow.ui \
     upload.ui
 

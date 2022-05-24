@@ -17,7 +17,11 @@ class AuthWindow : public QDialog
 public:
     explicit AuthWindow(QWidget *parent = nullptr);
     ~AuthWindow();
-
+    inline static QString loginOfUser;
+        static QString getNameOfUser()
+            {
+                return loginOfUser;
+            }
 
 
 private slots:

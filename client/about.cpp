@@ -6,6 +6,11 @@ about::about(QWidget *parent) :
     ui(new Ui::about)
 {
     ui->setupUi(this);
+    ui->gitLink->setTextInteractionFlags(Qt::LinksAccessibleByMouse);
+    ui->gitLink->setOpenExternalLinks(true);
+    ui->gitLink->setTextFormat(Qt::RichText);
+    ui->gitLink->setText("Наш GitHub: <a href=https://github.com/igor2323/AssettoHub/wiki>AssettoHub</a>");
+
 }
 
 about::~about()
