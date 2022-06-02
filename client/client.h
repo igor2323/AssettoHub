@@ -31,7 +31,6 @@ class Client : public QObject
     protected:
         Client(QObject *parent = nullptr) : QObject(parent){
             mysocket.connectToHost("127.0.0.1",33333);
-
             connect(&mysocket, &QTcpSocket::readyRead,this,&Client::slotClientRead);
             connect(&mysocket,&QTcpSocket::disconnected,this,&Client::slotDisconnected);
         }

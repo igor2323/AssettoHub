@@ -7,8 +7,11 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 SOURCES +=  tst_testfuncforserver.cpp \
-   /home/igor/prom/projects/AssettoHub/server/functionsforserver.cpp
+   ../server/functionsforserver.cpp
+  # /home/igor/prom/projects/AssettoHub/server/functionsforserver.cpp
 
 HEADERS += \
-    /home/igor/prom/projects/AssettoHub/server/database.h \
-    /home/igor/prom/projects/AssettoHub/server/functionsforserver.h \
+   ../server/database.cpp \
+   ../server/functionsforserver.h
+   # /home/igor/prom/projects/AssettoHub/server/database.h \
+   # /home/igor/prom/projects/AssettoHub/server/functionsforserver.h \

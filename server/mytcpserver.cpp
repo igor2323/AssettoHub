@@ -55,13 +55,9 @@ void MyTcpServer::slotServerRead(){
     {
         QByteArray array =tempSock->readAll();
         res.append(array);
-        //mTcpSocket->write(array);
     }
-    //qDebug()<<res+"pppp";
+
     QByteArray array = parsing(res,tempSock->socketDescriptor());
-    //qDebug()<<array+"pppp";
-    qDebug()<<array;
-    //qDebug()<<tempSock->socketDescriptor();
     tempSock->write(array);
 }
 
