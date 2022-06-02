@@ -89,7 +89,7 @@ class DataBase
                 return "AlreadyCreated";
             }
             else{
-                query.prepare("INSERT INTO Users VALUES (:login, :password, 0, :sock, 0)" );
+                query.prepare("INSERT INTO Users VALUES (:login, :password, 0, :sock, 0,0)" );
                 query.bindValue(":login", log);
                 query.bindValue(":password", pass);
                 query.bindValue(":sock", socketDesc);
