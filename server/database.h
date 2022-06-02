@@ -28,10 +28,10 @@ class DataBase
         static DataBaseDestroyer destroyer;
         static QSqlDatabase db;
     protected:
-        DataBase(){
+        DataBase(QString db_name){
             db = QSqlDatabase::addDatabase("QSQLITE");
            QString path = "..//server/dataBase/";
-            db.setDatabaseName(path + "DataBase.db");//
+            db.setDatabaseName(path + db_name);//
 
             if (!db.open())
                 qDebug() << db.lastError().text();
@@ -41,10 +41,10 @@ class DataBase
         ~DataBase() {db.close();}
         friend class DataBaseDestroyer;
     public:
-        static DataBase* getInstance(){
+        static DataBase* getInstance(QString db_name = "DataBase.db"){
             if (!dataBasePointer)
             {
-                dataBasePointer = new DataBase();
+                dataBasePointer = new DataBase(db_name);
                 destroyer.initialize(dataBasePointer);
             }
             return dataBasePointer;
