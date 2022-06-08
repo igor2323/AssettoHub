@@ -51,9 +51,8 @@ QByteArray parsing(QString data_from_client, int socketDesc){
         return checkPrem(socketDesc);}
 
     else if (nameOfFunc == "getInformation"){
-        return getInformation(socketDesc);
-    }else
-
+        return getInformation(socketDesc);}
+    else
         return "error";
 
 }

@@ -13,6 +13,7 @@ AuthWindow::AuthWindow(QWidget *parent) :
     ui->regLabel->setVisible(false);
     ui->regLoginButton->setVisible(false);
     ui->passLoginFormat->setText("Логин и пароль не должны содержать пробелы");
+    ui->passLoginFormat->setVisible(false);
 }
 
 AuthWindow::~AuthWindow()
@@ -22,6 +23,7 @@ AuthWindow::~AuthWindow()
 
 void AuthWindow::on_authRegButton_clicked()
 {
+    ui->passLoginFormat->setVisible(true);
     ui->authEnterButton->setVisible(false);
     ui->authLabel->setVisible(false);
     ui->authRegButton->setVisible(false);
@@ -29,11 +31,14 @@ void AuthWindow::on_authRegButton_clicked()
     ui->regEnterButton->setVisible(true);
     ui->regLabel->setVisible(true);
     ui->regLoginButton->setVisible(true);
+
 }
 
 
 void AuthWindow::on_regLoginButton_clicked()
 {
+    ui->passLoginFormat->setVisible(false);
+
     ui->authEnterButton->setVisible(true);
     ui->authLabel->setVisible(true);
     ui->authRegButton->setVisible(true);
@@ -41,6 +46,7 @@ void AuthWindow::on_regLoginButton_clicked()
     ui->regEnterButton->setVisible(false);
     ui->regLabel->setVisible(false);
     ui->regLoginButton->setVisible(false);
+
 }
 
 
