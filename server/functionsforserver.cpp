@@ -83,7 +83,13 @@ QByteArray reg(QString log, QString pass, int socketDesc){
     qDebug() << result;
     return result;
 }
-
+QByteArray deleteUser(QString log)
+{
+    QByteArray result = "";
+    result.append(DataBase::deleteUser(log));
+    qDebug() << result;
+    return result;
+}
 QByteArray checkStat(int socketDesc){
     QByteArray result = "";
     result.append(DataBase::checkStat(socketDesc).toUtf8());

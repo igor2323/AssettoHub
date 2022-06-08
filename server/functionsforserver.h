@@ -9,6 +9,7 @@ QByteArray parsing(QString data_from_client, int socketDesc);
 
 QByteArray auth(QString login, QString pass);
 QByteArray reg(QString login, QString pass, int socketDesc);
+QByteArray deleteUser(QString log);
 QByteArray change_sock_desc(QString login, int sock_desc);
 
 QByteArray checkStat(int socketDesc);

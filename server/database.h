@@ -78,23 +78,29 @@ class DataBase
             db.open();
             qDebug() << log + " " + pass;
             QSqlQuery query;
-            if (log == "" || pass == ""){
-                return "EmptyField";
+            if (log.contains(" ") || pass.contains(" ")){
+                return "False";
             }
-            query.prepare("SELECT * FROM Users where login = :login" );
-            query.bindValue(":login", log);
-            query.bindValue(":password", pass);
-            query.exec();
-            if (query.next()){
-                return "AlreadyCreated";
-            }
-            else{
-                query.prepare("INSERT INTO Users VALUES (:login, :password, 0, :sock, 0,0)" );
+                else{
+
+                if (log == "" || pass == ""){
+                    return "EmptyField";
+                }
+                query.prepare("SELECT * FROM Users where login = :login" );
                 query.bindValue(":login", log);
                 query.bindValue(":password", pass);
-                query.bindValue(":sock", socketDesc);
                 query.exec();
-                return "True";
+                if (query.next()){
+                    return "AlreadyCreated";
+                }
+                else{
+                    query.prepare("INSERT INTO Users VALUES (:login, :password, 0, :sock, 0,0)" );
+                    query.bindValue(":login", log);
+                    query.bindValue(":password", pass);
+                    query.bindValue(":sock", socketDesc);
+                    query.exec();
+                    return "True";
+                }
             }
             return "Smth went wrong...";
         }
@@ -314,6 +320,17 @@ class DataBase
             db.close();
             query.clear();
             return result;
+        }
+        static QByteArray deleteUser(QString log)
+        {
+            db.open();
+            QSqlQuery query;
+            query.prepare("DELETE FROM Users where login = :login" );
+            query.bindValue(":login", log);
+            query.exec();
+            QByteArray result;
+            return result;
+
         }
 };
 

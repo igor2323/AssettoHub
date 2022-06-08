@@ -18,6 +18,7 @@ public:
 private slots:
     void test_case_auth();
     void test_case_searchByCar();
+    void test_case_reg();
 };
 
 testFuncforserver::testFuncforserver()
@@ -28,6 +29,15 @@ testFuncforserver::testFuncforserver()
 testFuncforserver::~testFuncforserver()
 {
 
+}
+
+void testFuncforserver::test_case_reg()
+{
+    deleteUser("Kostik");
+    QCOMPARE("True", reg("Kostik", "kinoman", 1));
+    QCOMPARE("EmptyField", reg("", "kinoman", 2));
+    deleteUser("Konstantin Kinoman");
+    QCOMPARE("False", reg("Konstantin Kinoman", "kinoman", 3));
 }
 
 void testFuncforserver::test_case_auth()
