@@ -16,7 +16,7 @@ public:
     ~testFuncforserver();
 
 private slots:
-    void test_case1();
+    void test_case_auth();
     void test_case_searchByCar();
 };
 
@@ -29,10 +29,12 @@ testFuncforserver::~testFuncforserver()
 {
 
 }
-//"R8|Monza|https://drive.google.com/uc?export=download&confirm=no_antivirus&id=1ySOMcizxmStDZeCUc72DGGI4RyjEOSbf|R8 Monza|admin|0|1:48.2|0}McLaren|Spa|https://www.youtube.com/watch?v=dQw4w9WgXcQ|dasdada|Artem|0||0}BMW|Spa|https://www.youtube.com/watch?v=3nekHARk3jA|BMW Spa|Artem|0||0}Bentley|Imola|https://www.youtube.com/watch?v=bgbH4FAmAA0|Bentley Imola|NoName|0||0}5|551|5|15|Artem|0|00:00.0|0}"
-void testFuncforserver::test_case1()
+
+void testFuncforserver::test_case_auth()
 {
     QCOMPARE("True", auth("Artem", "123"));
+    QCOMPARE("True", auth("igor", "igor"));
+    QCOMPARE("False", auth("aaa", "bbb"));
 }
 
 void testFuncforserver::test_case_searchByCar()
