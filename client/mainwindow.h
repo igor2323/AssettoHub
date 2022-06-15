@@ -45,7 +45,8 @@ public:
 
     void addToMainTable(QString dataFromServer){
         ui->MainTable->clearContents();
-        if (dataFromServer == " "){
+        qDebug() << dataFromServer.length();
+        if (dataFromServer== "ErrorRead"){
             QMessageBox nullBox;
             nullBox.setText("Увы, такого тут нет((");
             nullBox.exec();
