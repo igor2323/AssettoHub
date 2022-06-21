@@ -2,6 +2,7 @@
 #include "ui_upload.h"
 
 #include "QDebug"
+#include "QMessageBox"
 
 upload::upload(QWidget *parent) :
     QDialog(parent),
@@ -21,7 +22,12 @@ void upload::on_pushButton_clicked()
     if (ui->premToggle->isChecked()){
         prem = "1";
     } else prem = "0";
-    uploadSetups(ui->upload_car_name->text(),ui->upload_track_name->text(),ui->upload_comment->text(),ui->upload_link->text(), ui->upload_time->text(), prem);
+    QString dataFromServer = uploadSetups(ui->upload_car_name->text(),ui->upload_track_name->text(),ui->upload_comment->text(),ui->upload_link->text(), ui->upload_time->text(), prem);
+    if (dataFromServer == "EmptyField"){
+        QMessageBox emptyError;
+        emptyError.setText("Какое-то поле пустое :c");
+        emptyError.exec();
+    }
     close();
 }
 

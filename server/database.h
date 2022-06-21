@@ -245,22 +245,27 @@ class DataBase
             QByteArray result;
             db.open();
             QSqlQuery query;
-            query.prepare("INSERT INTO Setups VALUES (:car_name, :track_name, :link,:comment, :author, 0, :time, :prem)");
-            query.bindValue(":car_name", car);
-            query.bindValue(":track_name", track);
-            query.bindValue(":comment", comment);
-            query.bindValue(":link", link);
-            query.bindValue(":author", author);
-            query.bindValue(":time", estTime);
-            query.bindValue(":prem", prem);
-            query.exec();
-            query.prepare("UPDATE Users SET upload_count=upload_count+1 WHERE sock=:sock_desc");
-            query.bindValue(":sock_desc", sock_desc);
-            query.exec();
-            db.close();
-            query.clear();
-            return result;
-           }
+            if (car == "" || track == "" || comment == "" || link == "" || author == ""){
+                return "EmptyField";
+            }
+            else{
+                query.prepare("INSERT INTO Setups VALUES (:car_name, :track_name, :link,:comment, :author, 0, :time, :prem)");
+                query.bindValue(":car_name", car);
+                query.bindValue(":track_name", track);
+                query.bindValue(":comment", comment);
+                query.bindValue(":link", link);
+                query.bindValue(":author", author);
+                query.bindValue(":time", estTime);
+                query.bindValue(":prem", prem);
+                query.exec();
+                query.prepare("UPDATE Users SET upload_count=upload_count+1 WHERE sock=:sock_desc");
+                query.bindValue(":sock_desc", sock_desc);
+                query.exec();
+                db.close();
+                query.clear();
+                return result;
+            }
+        }
         static QByteArray change_status(QString log, int sock_desc)
         {
             db.open();
